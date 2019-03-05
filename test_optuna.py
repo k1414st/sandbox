@@ -12,7 +12,7 @@ import optuna
 """
 ダミーデータ作成
 3変数はDFと相関があり、残り17変数は相関なし
-(L1回帰が有効と思われるデータを、作為的に作成)
+(L1回帰が有効と思われるデータを作為的に作成)
 """
 N_POS = N_NEG = 100
 N_F1 = 3
@@ -47,13 +47,14 @@ auc_base = get_model_auc()
 optunaによる最適化モデル
 """
 def objective(trial):
+    # 探索範囲と分布を指定
     penalty = trial.suggest_categorical('penalty', ['l1', 'l2'])
     C = trial.suggest_loguniform('C', 1e-3, 1e3)
     return -get_model_auc(penalty=penalty, C=C)
 
 # 学習
 study = optuna.create_study()
-study.optimize(objective, n_trials=100, n_jobs=1)
+study.optimize(objective, n_trials=100)
 
 """
 比較
