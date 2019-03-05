@@ -1,4 +1,3 @@
-#!/usr/bin/python3.5
 # -*- coding: utf-8 -*-
 """
 Bellman方程式の漸化式を用いて
